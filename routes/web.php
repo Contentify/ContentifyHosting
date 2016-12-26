@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => 'auth', 'admin'], function () {
+Route::group(['middleware' => ['auth', 'admin']], function () {
 
 	Route::get('/backend', 'BackendController@index');
 
