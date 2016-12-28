@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/semantic/semantic.min.css') }}">
+    <link rel="stylesheet" href="{{ elixir('assets/frontend/css/app.css') }}">
 
     <!-- Scripts -->
     <script>
@@ -59,6 +60,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ url('/user/'.Auth::user()->email.'/edit') }}">Edit Profile</a>
+                                    </li>
                                     @if (Auth::User()->isAdmin())
                                         <li>
                                             <a href="{{ url('/backend') }}">Admin Backend</a>
@@ -83,10 +87,17 @@
             </div>
         </nav>
 
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
         @yield('content')
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src="{{ elixir('assets/frontend/vendor/semantic/semantic.min.js') }}"></script>
+    <script src="{{ elixir('assets/frontend/js/app.js') }}"></script>
 </body>
 </html>
