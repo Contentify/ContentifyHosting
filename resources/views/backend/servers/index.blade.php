@@ -1,6 +1,21 @@
-@section('pageType', 'datatables')
-
 @extends('layouts.backend')
+
+@section('pageType', 'datatables')
+@section('pageName', '<a href="'.route('server.create').'" class="btn btn-success">Create Serveur</a>')
+
+@section('styles')
+    @parent
+    
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/jquery.dataTables.css') }}">
+@stop
+
+
+@section('scripts')
+    @parent
+    
+    <script src="{{ asset('assets/backend/js/vendor/jquery.dataTables.min.js') }}"></script>
+@stop
+
 
 @section('content')
 <div class="content-wrapper">

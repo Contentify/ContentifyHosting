@@ -1,6 +1,24 @@
-@section('pageType', 'form-product')
-
 @extends('layouts.backend')
+
+@section('pageType', 'datatables')
+@section('pageName', '<a href="'.route('server.create').'" class="btn btn-success">Create Serveur</a>')
+
+@section('styles')
+    @parent
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/backend/css/vendor/select2.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/backend/css/vendor/select2-bootstrap.css') }}" />
+@stop
+
+
+@section('scripts')
+    @parent
+    
+    <script src="{{ asset('assets/backend/js/vendor/select2.full.min.js') }}"></script>
+@stop
+
+
+
 
 @section('content')
 	<div class="content-wrapper">
@@ -98,12 +116,6 @@
 				{!! Form::label('description', 'Description:', array('class' => 'col-sm-2 col-md-2 control-label')) !!}
 				<div class="col-sm-10 col-md-8">
 					{!! Form::textarea('description', null, array('class' => 'form-control', 'placeholder' => 'Description')) !!}
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10 col-md-offset-2 col-md-10">
-					{!! Form::checkbox('published', true, array('class' => 'form-control')) !!} Published
 				</div>
 			</div>
 
