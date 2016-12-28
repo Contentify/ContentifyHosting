@@ -6,35 +6,22 @@
 	<title>{{ config('app.name', 'Laravel') }}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<!-- stylesheets -->
-	<link rel="stylesheet" href="{{ elixir('assets/backend/css/app.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/animate.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/brankic.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/ionicons.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/font-awesome.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/jquery.dataTables.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/datepicker.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/morris.css') }}">
+	@section('styles')
+		<!-- stylesheets -->
+		<link rel="stylesheet" href="{{ elixir('assets/backend/css/app.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/animate.css') }}">
 
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/backend/css/vendor/select2.min.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/backend/css/vendor/select2-bootstrap.css') }}" />
+		<!-- Fonts Icon -->
+		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/brankic.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/ionicons.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/font-awesome.min.css') }}">
+	@show
 
-	<!-- javascript -->
-	<script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}"></script>
-	<script src="{{ elixir('assets/backend/js/app.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/jquery.cookie.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/moment.min.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/bootstrap-datepicker.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/raphael-min.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/morris.min.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/jquery.dataTables.min.js') }}"></script>
-
-	<script src="{{ asset('assets/backend/js/vendor/select2.full.min.js') }}"></script>
-	
-	<script src="{{ asset('assets/backend/js/vendor/jquery.flot/jquery.flot.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/jquery.flot/jquery.flot.time.js') }}"></script>
-	<script src="{{ asset('assets/backend/js/vendor/jquery.flot/jquery.flot.tooltip.js') }}"></script>
-
+	@section('scripts')
+		<!-- javascript -->
+		<script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}"></script>
+		<script src="{{ elixir('assets/backend/js/app.js') }}"></script>
+	@show
 
 	<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -50,7 +37,7 @@
 	<div id="wrapper">
 		<div id="sidebar-default" class="main-sidebar">
 			<div class="current-user">
-				<a href="index.html" class="name">
+				<a href="#" class="name">
 					@if(Auth::user()->image)
 						<img class="avatar" src="{{ asset('assets/backend/img/avatars/1.jpg') }}" />
 					@else
@@ -169,8 +156,10 @@
 				</div>
 
 				<div class="page-title">
-					Dashboard
+					@yield('pageName')
 				</div>
+
+				@yield('dataPeriod')
 			</div>
 			@if (session('status'))
             	<div class="alert alert-success">

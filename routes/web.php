@@ -33,6 +33,7 @@ Route::get('/backend', 'Backend\BackendController@index');
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'admin']], function () {
 
 	Route::get('server/{providerId}/datacenter', ['as' => 'server.get.datacenter', 'uses' => 'Backend\ServerBackendController@getDatacenter']);
+	Route::get('dashboard/stats/{startdate}/{enddate}', ['as' => 'dashboard.get.stats', 'uses' => 'Backend\BackendController@getStats']);
 
 	Route::resource('provider', 'Backend\ProviderBackendController');
 	Route::resource('server', 'Backend\ServerBackendController');

@@ -3,6 +3,11 @@
 	.content-wrapper {
 		margin-top: 40px;
 		padding-bottom: 40px;
+        
+        tr.actions span {
+            float: left;
+            margin-right: 10px;
+        }
 
 		thead th {
 			border-top: 1px solid #dee3ea;
@@ -23,6 +28,11 @@
                 cursor: default;
             }
 		}
+        
+        td.actions span {
+            float: left;
+            margin-right: 5px;
+        }
 
 		.dataTables_length {
 			float: right;

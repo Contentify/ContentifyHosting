@@ -1,6 +1,21 @@
-@section('pageType', 'form-product')
-
 @extends('layouts.backend')
+
+@section('pageType', 'form')
+@section('pageName', '<a href="'.route('server.create').'" class="btn btn-success">Create Serveur</a>')
+
+@section('styles')
+    @parent
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/backend/css/vendor/select2.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/backend/css/vendor/select2-bootstrap.css') }}" />
+@stop
+
+
+@section('scripts')
+    @parent
+    
+    <script src="{{ asset('assets/backend/js/vendor/select2.full.min.js') }}"></script>
+@stop
 
 @section('content')
 	<div class="content-wrapper">
@@ -101,12 +116,6 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10 col-md-offset-2 col-md-10">
-					{!! Form::checkbox('published', true, array('class' => 'form-control')) !!} Published
-				</div>
-			</div>
-
 			<div class="form-group form-actions">
 				<div class="col-sm-offset-2 col-sm-10 col-md-offset-2 col-md-10">
 					{{ link_to_route('server.index', 'Cancel', null, array('class' => 'btn btn-default')) }}
@@ -130,7 +139,6 @@
 
 			function Datacenter() {
 				var providerId = $('.provider').val();
-				console.log(providerId);
 				var baseUrl = '{!! url('/') !!}'
 				var url = baseUrl + '/backend/server/' + providerId + '/datacenter'
 				$('.datacenter').html();

@@ -1,141 +1,175 @@
 @extends('layouts.backend')
 
-@section('content')
-<div id="dashboard">
-<div class="content-wrapper">
-                <div class="metrics clearfix">
-                    <div class="metric">
-                        <span class="field">Total users</span>
-                        <span class="data">24,900</span>
-                    </div>
-                    <div class="metric">
-                        <span class="field">New sign ups</span>
-                        <span class="data">108</span>
-                    </div>
-                    <div class="metric">
-                        <span class="field">Sales this month</span>
-                        <span class="data">$674.00</span>
-                    </div>
-                    <div class="metric">
-                        <span class="field">Total Sales</span>
-                        <span class="data">$3,823.90</span>
-                    </div>
-                </div>
+@section('pageType', 'dashboard')
+@section('pageName', 'Dashboard')
 
-                <div class="chart">
-                    <h3>
-                        Concurrent visitors last 2 weeks
+@section('styles')
+    @parent
 
-                        <div class="total pull-right hidden-xs">
-                            12,958 total
-                            
-                            <div class="change up">
-                                <i class="fa fa-chevron-up"></i>
-                                10%
-                            </div>
-                        </div>
-                    </h3>
-                    <div id="visitors-chart"></div>
-                </div>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/backend/css/vendor/datepicker.css') }}">
+@stop
 
-                <div class="charts-half clearfix">
-                    <div class="chart pull-left">
-                        <h3>
-                            Succesful payments
 
-                            <div class="total pull-right hidden-xs">
-                                $3,124.00 total
-                                
-                                <div class="change up">
-                                    <i class="fa fa-chevron-up"></i>
-                                    6.5%
-                                </div>
-                            </div>
-                        </h3>
-                        <div id="payments-chart"></div>
-                    </div>
-                    <div class="chart pull-right">
-                        <h3>
-                            New customers
+@section('scripts')
+    @parent
 
-                            <div class="total pull-right hidden-xs">
-                                1,402 total
-                                
-                                <div class="change down">
-                                    <i class="fa fa-chevron-down"></i>
-                                    3.5%
-                                </div>
-                            </div>
-                        </h3>
-                        <div id="signups-chart"></div>
-                    </div>
-                </div>
+    <script src="{{ asset('assets/backend/js/vendor/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/vendor/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/vendor/jquery.flot/jquery.flot.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/vendor/jquery.flot/jquery.flot.time.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/vendor/jquery.flot/jquery.flot.tooltip.js') }}"></script>
+@stop
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="barchart">
-                            <h3>Visitors last month</h3>
-                            <div id="bar-chart"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="referrals">
-                            <h3>Top Referrals</h3>
-                            <div class="referral">
-                                <span>
-                                    www.google.com
-
-                                    <div class="pull-right">
-                                        <span class="data">293</span>  67%
-                                    </div>
-                                </span>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 67%">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="referral">
-                                <span>
-                                    www.facebook.com
-
-                                    <div class="pull-right">
-                                        <span class="data">104</span>  17%
-                                    </div>
-                                </span>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 17%">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="referral">
-                                <span>
-                                    www.twitter.com
-
-                                    <div class="pull-right">
-                                        <span class="data">57</span>  10%
-                                    </div>
-                                </span>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="referral">
-                                <span>
-                                    www.instagram.com
-
-                                    <div class="pull-right">
-                                        <span class="data">29</span>  6%
-                                    </div>
-                                </span>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 6%">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+@section('dataPeriod')
+    <div class="period-select hidden-xs">
+        <form class="input-daterange">
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar-o"></i>
+                </span>
+                <input name="start" id="startdate" type="text" class="form-control datepicker" placeholder="{{ Carbon\Carbon::createFromFormat('m-d-Y', date('m-d-Y'))->subDay(7)->format('m-d-Y') }}">
             </div>
+                        
+            <p class="pull-left">to</p>
+
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar-o"></i>
+                </span>
+                <input name="end" id="enddate" type="text" class="form-control datepicker" placeholder="{{ Carbon\Carbon::createFromFormat('m-d-Y', date('m-d-Y'))->format('m-d-Y') }}">
             </div>
+        </form>
+    </div>
 @endsection
+
+@section('content')
+<div class="content-wrapper">
+    <div class="metrics clearfix">
+        <div class="metric">
+            <span class="field">Total users</span>
+            <span class="data totalusers">{{ $users }}</span>
+        </div>
+        <div class="metric">
+            <span class="field">New sign ups</span>
+            <span class="data signups">{{ $signups }}</span>
+        </div>
+        <div class="metric">
+            <span class="field">Sales this month</span>
+            <span class="data sales">$674.00</span>
+        </div>
+        <div class="metric">
+            <span class="field">Total Sales</span>
+            <span class="data totalsales">$3,823.90</span>
+        </div>
+    </div>
+
+    <div class="chart">
+        <h3>
+            New users
+
+            <div class="total pull-right hidden-xs">
+                <span class="signups">{{ $signups }}</span> total
+            </div>
+        </h3>
+        <div id="signups-chart"></div>
+    </div>          
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // Flot Charts
+    var chart_border_color = "#efefef";
+    var chart_color = "#b0b3e3";
+
+    // data chart
+    var d = {{ $userCharts }};
+    // options chart
+    var options = {
+        xaxis : {
+            mode : "time",
+            timeformat: "%Y/%m/%d",
+            tickLength : 10,
+            alignTicksWithAxis: 1,
+        },
+        yaxis : {
+            max: {!! $signups !!}+3,
+        },
+        series : {
+            lines : {
+                show : true,
+                lineWidth : 2,
+                fill : true,
+                fillColor : {
+                    colors : [{
+                        opacity : 0.04
+                    }, {
+                        opacity : 0.1
+                    }]
+                }
+            },
+            shadowSize : 0
+        },
+        selection : {
+            mode : "x"
+        },
+        grid : {
+            hoverable : true,
+            clickable : true,
+            tickColor : chart_border_color,
+            borderWidth : 0,
+            borderColor : chart_border_color,
+        },
+        tooltip : true,
+        colors : [chart_color]
+    };
+
+    // initialize chart
+    var plot = $.plot($("#signups-chart"), [d], $.extend(options, {
+        tooltipOpts : {
+            content : "Signups on <b>%x</b>: <span class='value'>%y</span>",
+            defaultTheme : false,
+            shifts: {
+                x: -75,
+                y: -70
+            }
+        }
+    }));
+
+    // Range Datepicker
+    $('.input-daterange').datepicker({
+        autoclose: true,
+        orientation: 'right top',
+        format: 'mm-dd-yyyy',
+    })
+    //Listen for the change even on the input
+    .on('changeDate', dateChanged);
+
+    // function get stats of period given
+    function dateChanged(ev) {
+        $(this).datepicker('hide');
+        if ($('#startdate').val() != '' && $('#enddate').val() != '') {
+            var startdate = $('#startdate').val()
+            var enddate = $('#enddate').val()
+            var baseUrl = '{!! url('/') !!}'
+            var url = baseUrl + '/backend/dashboard/stats/' + startdate + '/' + enddate + '/'
+            $.get(url, function(data){
+                $('.signups').html(data.signups)
+                var data = data.userCharts
+                $(ResetChartSignups(data))
+            }, "json"); 
+        }
+    }
+
+    // function draw new chart with new data
+    function ResetChartSignups(data) {
+        plot.setData([data])
+        plot.setupGrid();
+        plot.draw();
+    }
+
+});
+</script>
+
+@endsection
+
+

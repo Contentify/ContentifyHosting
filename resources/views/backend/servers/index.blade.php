@@ -1,6 +1,21 @@
-@section('pageType', 'datatables')
-
 @extends('layouts.backend')
+
+@section('pageType', 'datatables')
+@section('pageName', '<a href="'.route('server.create').'" class="btn btn-success">Create Serveur</a>')
+
+@section('styles')
+    @parent
+    
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/jquery.dataTables.css') }}">
+@stop
+
+
+@section('scripts')
+    @parent
+    
+    <script src="{{ asset('assets/backend/js/vendor/jquery.dataTables.min.js') }}"></script>
+@stop
+
 
 @section('content')
 <div class="content-wrapper">
@@ -16,6 +31,7 @@
                     <th tabindex="0" rowspan="1" colspan="1">IP</th>
                     <th tabindex="0" rowspan="1" colspan="1">Tags</th>
                     <th tabindex="0" rowspan="1" colspan="1">Created</th>
+                    <th tabindex="0" rowspan="1" colspan="1">Actions</th>
                 </tr>
             </thead>
 
@@ -42,6 +58,17 @@
                             @endforeach
                         </td>
     	                <td class="center">{{ $server->created_at }}</td>
+                        <td class="actions">
+                            <span class="delete">
+                                {!! Form::open(['method' => 'DELETE', 'route' => ['server.destroy', $server->id]]) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                {!! Form::close() !!}
+                            </span>
+
+                            <span class="edit">
+                                <a href="{{ route('server.edit', $server->id) }}" class="btn btn-warning">Edit</a>
+                            </span>
+                        </td>
                 	</tr>
             	@endforeach
            	</tbody>
