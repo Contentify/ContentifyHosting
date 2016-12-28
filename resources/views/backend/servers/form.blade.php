@@ -139,7 +139,6 @@
 
 			function Datacenter() {
 				var providerId = $('.provider').val();
-				console.log(providerId);
 				var baseUrl = '{!! url('/') !!}'
 				var url = baseUrl + '/backend/server/' + providerId + '/datacenter'
 				$('.datacenter').html();

@@ -158,6 +158,8 @@
 				<div class="page-title">
 					@yield('pageName')
 				</div>
+
+				@yield('dataPeriod')
 			</div>
 			@if (session('status'))
             	<div class="alert alert-success">

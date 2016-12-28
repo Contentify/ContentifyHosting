@@ -11934,7 +11934,7 @@ body.open-sidebar #wrapper #content {
   top: -1px;
 }
 
-#dashboard .chart #visitors-chart {
+#dashboard .chart #signups-chart {
   height: 230px;
   position: relative;
 }
