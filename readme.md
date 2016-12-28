@@ -25,3 +25,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+## Warning
+
+This repo use licenced Admin Backend - Wolf Admin Responsive Theme
+If you using this repo you need to buy licence for backend template [Wolf Admin Responsive Theme](https://wrapbootstrap.com/theme/wolf-admin-responsive-theme-WB0PH0GBL) or you can change with our template.
