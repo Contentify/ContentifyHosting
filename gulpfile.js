@@ -13,7 +13,40 @@ require('laravel-elixir-vue-2');
  |
  */
 
+/*
+ * Elixir Frontend
+ */
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    mix.sass(
+    		'./resources/assets/frontend/sass/app.scss',
+    		'./public/assets/frontend/css'
+    	)
+       .webpack(
+       		'./resources/assets/frontend/js/app.js',
+       		'./public/assets/frontend/js'
+      );
 });
+
+/*
+ * Elixir Backend
+ */
+elixir(mix => {
+    mix.sass(
+    		'./resources/assets/backend/sass/app.scss',
+    		'./public/assets/backend/css'
+    	)
+       .webpack(
+       		'./resources/assets/backend/js/app.js',
+       		'./public/assets/backend/js'
+      );
+});
+
+/*
+ * Elixir Versionning
+ */
+ elixir(mix => {
+    mix.version(
+        ['assets/frontend/css/app.css', 'assets/frontend/js/app.js', 'assets/backend/css/app.css', 'assets/backend/js/app.js']
+      );
+});
+
