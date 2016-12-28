@@ -19,8 +19,24 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => ['auth', 'admin']], function () {
+Route::get('/settings', 'UserController@edit');
 
-	Route::get('/backend', 'BackendController@index');
+Route::resource('user', 'UserController', ['only' => [
+    'edit', 'update', 'destroy'
+]]);
 
+Route::get('/backend', 'Backend\BackendController@index');
+
+/*
+ * Route Backend
+ */
+Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'admin']], function () {
+
+	Route::get('server/{providerId}/datacenter', ['as' => 'server.get.datacenter', 'uses' => 'Backend\ServerBackendController@getDatacenter']);
+
+	Route::resource('provider', 'Backend\ProviderBackendController');
+	Route::resource('server', 'Backend\ServerBackendController');
+	Route::resource('datacenter', 'Backend\DatacenterBackendController');
+	Route::resource('country', 'Backend\CountryBackendController');
 });
+
