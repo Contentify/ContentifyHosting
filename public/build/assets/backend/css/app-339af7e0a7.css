@@ -13301,6 +13301,11 @@ body.open-sidebar #wrapper #content {
   cursor: default;
 }
 
+#datatables .content-wrapper td.actions span {
+  float: left;
+  margin-right: 5px;
+}
+
 #datatables .content-wrapper .dataTables_length {
   float: right;
   margin-bottom: 25px;

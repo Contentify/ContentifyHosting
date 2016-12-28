@@ -28,6 +28,11 @@
                 cursor: default;
             }
 		}
+        
+        td.actions span {
+            float: left;
+            margin-right: 5px;
+        }
 
 		.dataTables_length {
 			float: right;

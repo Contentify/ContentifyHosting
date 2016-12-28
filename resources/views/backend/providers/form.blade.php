@@ -1,6 +1,7 @@
-@section('pageType', 'form-product')
-
 @extends('layouts.backend')
+
+@section('pageType', 'form')
+@section('pageName', '<a href="'.route('provider.create').'" class="btn btn-success">Create Provider</a>')
 
 @section('content')
 	<div class="content-wrapper">

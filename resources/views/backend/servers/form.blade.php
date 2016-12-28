@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 
-@section('pageType', 'datatables')
+@section('pageType', 'form')
 @section('pageName', '<a href="'.route('server.create').'" class="btn btn-success">Create Serveur</a>')
 
 @section('styles')
@@ -16,9 +16,6 @@
     
     <script src="{{ asset('assets/backend/js/vendor/select2.full.min.js') }}"></script>
 @stop
-
-
-
 
 @section('content')
 	<div class="content-wrapper">
