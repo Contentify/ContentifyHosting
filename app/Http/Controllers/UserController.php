@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth, Session;
+use Auth, Session, Image;
 use App\User;
 
 class UserController extends Controller
@@ -61,12 +61,26 @@ class UserController extends Controller
         {
             // validate fields
             $this->validate($request, [
-                'name'  => 'required|min:3',
-                'email' => 'email|required|unique:users,email,'.Auth::User()->id,
+                'name'   => 'required|min:3',
+                'email'  => 'email|required|unique:users,email,'.Auth::User()->id,
+                'avatar' => 'image|max:10240',
             ]);
 
             // stock all fields in $input
-            $input = $request->all();
+            $input = $request->except('avatar');
+
+            // check if there is avatar
+            if ($request->hasFile('avatar')) {
+                // store, resize and save image file
+                $avatar = $request->file('avatar');
+                Image::make($avatar)->resize(128, 128)->save(storage_path().'/app/public/avatars/'.$request->user()->id.'.'.$avatar->extension());
+
+                // store image filename in database
+                $user->avatar = $request->user()->id.'.'.$avatar->extension();
+            }
+            else {
+                $user->avatar = '';
+            }
 
             // fill all input to save for user
             $user->fill($input)->save();
