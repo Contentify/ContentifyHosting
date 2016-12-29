@@ -38,10 +38,10 @@
 		<div id="sidebar-default" class="main-sidebar">
 			<div class="current-user">
 				<a href="#" class="name">
-					@if(Auth::user()->image)
-						<img class="avatar" src="{{ asset('assets/backend/img/avatars/1.jpg') }}" />
+					@if(Auth::user()->avatar)
+						<img class="avatar" src="{{ asset('storage/avatars/1.jpeg') }}" />
 					@else
-						<img class="avatar" src="{{ asset('assets/backend/img/avatars/1.jpg') }}" />
+						<img class="avatar" src="{{ asset('storage/avatars/no_avatars.png') }}" />
 					@endif
 					<span>
 						{{ Auth::user()->name }}

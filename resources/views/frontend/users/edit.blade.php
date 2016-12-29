@@ -22,7 +22,8 @@
 
                     {!! Form::model(Auth::user(), [
                         'method' => 'PATCH',
-                        'route' => ['user.update', Auth::user()->email]
+                        'route' => ['user.update', Auth::user()->email],
+                        'files' => true
                     ]) !!}
 
                     <div class="form-group">
@@ -32,7 +33,11 @@
 
                     <div class="form-group">
                         {!! Form::label('email', 'Email:', ['class' => 'control-label']) !!}
-                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                        {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::file('avatar', ['class' => 'form-control', 'value' => Auth::user()->avatar]) !!}
                     </div>
 
                     {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
