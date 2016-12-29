@@ -57,7 +57,7 @@
                                 <span class="tags">{{ $tag }}</span>
                             @endforeach
                         </td>
-    	                <td class="center">{{ $server->created_at }}</td>
+    	                <td>{{ $server->created_at }}</td>
                         <td class="actions">
                             <span class="delete">
                                 {!! Form::open(['method' => 'DELETE', 'route' => ['server.destroy', $server->id]]) !!}

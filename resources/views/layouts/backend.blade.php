@@ -73,28 +73,28 @@
 				<h3>General</h3>
 				<ul>
 					<li>
-						<a href="{{ url('/backend') }}" class="active">
+						<a href="{{ url('/backend') }}" @if(Request::is('backend')) class=active @endif>
 							<i class="ion-android-earth"></i> 
 							<span>Dashboard</span>
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('backend/customers') }}" data-toggle="sidebar">
+						<a href="{{ url('backend/customers') }}" {{ setActive('backend/customers') }} data-toggle="sidebar">
 							<i class="ion-person-stalker"></i> <span>Customers</span>
 							<i class="fa fa-chevron-down"></i>
 						</a>
 						<ul class="submenu">
 							<li><a href="{{ url('backend/customers') }}">Customers list</a></li>
-							<li><a href="{{ url('backend/orders') }}">Orders</a></li>
+							<li><a href="{{ url('backend/customers/orders') }}">Orders</a></li>
 						</ul>
 					</li>
 					<li>
-						<a href="{{ url('backend/reports') }}" data-toggle="sidebar">
+						<a href="{{ url('backend/customers/reports') }}" data-toggle="sidebar">
 							<i class="ion-stats-bars"></i> <span>Reports</span>
 							<i class="fa fa-chevron-down"></i>
 						</a>
 						<ul class="submenu">
-							<li><a href="{{ url('backend/reports/orders') }}">Reports orders</a></li>
+							<li><a href="{{ url('backend/customers/reports/orders') }}">Reports orders</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -103,22 +103,22 @@
 				<h3>Application</h3>
 				<ul>
 					<li>
-						<a href="{{ url('/backend/provider') }}">
+						<a href="{{ url('/backend/provider') }}" {{ setActive('backend/provider') }}>
 							<i class="fa fa-building-o"></i> <span>Providers</span>
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('/backend/datacenter') }}">
+						<a href="{{ url('/backend/datacenter') }}" {{ setActive('backend/datacenter') }}>
 							<i class="fa fa-database"></i> <span>Datacenters</span>
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('/backend/server') }}">
+						<a href="{{ url('/backend/server') }}" {{ setActive('backend/server') }}>
 							<i class="fa fa-server"></i> <span>Servers</span>
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('/backend/pricing') }}">
+						<a href="{{ url('/backend/pricing') }}" {{ setActive('backend/pricing') }}>
 							<i class="ion-card"></i> <span>Pricing</span>
 						</a>
 					</li>

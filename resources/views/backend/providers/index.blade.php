@@ -41,7 +41,7 @@
     	                <td>{{ $provider->name }}</td>
     	                <td>{{ $provider->description }}</td>
     	                <td>{{ $provider->published }}</td>
-    	                <td class="center">{{ $provider->created_at }}</td>
+    	                <td>{{ $provider->created_at }}</td>
                         <td class="actions">
                             <span class="delete">
                                 {!! Form::open(['method' => 'DELETE', 'route' => ['provider.destroy', $provider->id]]) !!}

@@ -51,7 +51,7 @@
                         </td>
                         <td>{{ $datacenter->country->name }}</td>
                         <td>{{ $datacenter->published }}</td>
-                        <td class="center">{{ $datacenter->created_at }}</td>
+                        <td>{{ $datacenter->created_at }}</td>
                         <td class="actions">
                             <span class="delete">
                                 {!! Form::open(['method' => 'DELETE', 'route' => ['datacenter.destroy', $datacenter->id]]) !!}
