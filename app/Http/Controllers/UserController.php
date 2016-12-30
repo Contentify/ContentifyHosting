@@ -28,17 +28,21 @@ class UserController extends Controller
      */
     public function edit($email)
     {
-        // check if email exist
-        User::where('email', '=', $email)->firstOrFail();
 
         // check if his profile of user loggedin
         if (Auth::user()->email == $email)
         {
+            // check if email exist
+            User::where('email', '=', $email)->firstOrFail();
+
             // return with view with view edit
             return view('frontend.users.edit');
         }
         else
         {
+            // Flash Message success
+            notify('Unauthorized!', 'error');
+            
             // redirect to home
             return redirect('home');
         }
