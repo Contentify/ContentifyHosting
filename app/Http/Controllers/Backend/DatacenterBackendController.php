@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
-use View;
+use View, Validator;
 use App\Datacenter;
 use App\Provider;
 use App\Country;
@@ -53,11 +53,21 @@ class DatacenterBackendController extends Controller {
   {
 
     // validate fields
-    $this->validate($request, [
+    $validator = Validator::make($request->all(), [
       'name'        => 'required|min:3',
       'provider_id' => 'required',
       'country_id'  => 'required',
     ]);
+
+    // check if validation success
+    if ($validator->fails()) {
+
+      // Flash Message error
+      notify('Datacenter can\'t be created!', 'error');
+
+      // back to form with inputs
+      return back()->withErrors($validator)->withInput();
+    }
 
     // store all values in $input
     $input = $request->all();
@@ -65,8 +75,11 @@ class DatacenterBackendController extends Controller {
     // create datacenter with values
     Datacenter::create($input);
 
+    // Flash Message success
+    notify('Datacenter created!', 'success');
+
     // redirect with success flash message
-    return redirect()->route('datacenter.index')->with('status', 'datacenter created!');
+    return redirect()->route('datacenter.index');
   }
 
   /**
@@ -114,11 +127,21 @@ class DatacenterBackendController extends Controller {
     $datacenter = Datacenter::findOrFail($id);
 
     // validate fields
-    $this->validate($request, [
+    $validator = Validator::make($request->all(), [
       'name'        => 'required|min:3',
       'provider_id' => 'required',
       'country_id'  => 'required',
     ]);
+
+    // check if validation success
+    if ($validator->fails()) {
+
+      // Flash Message error
+      notify('Datacenter can\'t be updated!', 'error');
+
+      // back to form with inputs
+      return back()->withErrors($validator)->withInput();
+    }
 
     // stock all fields in $input
     $input = $request->all();
@@ -126,8 +149,11 @@ class DatacenterBackendController extends Controller {
     // fill all input to save for datacenter
     $datacenter->fill($input)->save();
 
+    // Flash Message success
+    notify('Datacenter updated!', 'success');
+
     //redirect with success message
-    return redirect()->route('datacenter.index')->with('status', 'datacenter updated!');
+    return redirect()->route('datacenter.index');
   }
 
   /**
@@ -144,6 +170,9 @@ class DatacenterBackendController extends Controller {
 
     // delete datacenter
     $datacenter->delete();
+
+    // Flash Message success
+    notify('Datacenter deleted!', 'info');
 
     // redirect to home
     return redirect()->route('datacenter.index');

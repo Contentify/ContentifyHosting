@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
-use View;
+use View, Validator;
 use App\Server;
 use App\Datacenter;
 use App\Provider;
@@ -58,12 +58,22 @@ class ServerBackendController extends Controller {
   {
 
     // validate fields
-    $this->validate($request, [
+    $validator = Validator::make($request->all(), [
       'name'          => 'required|min:3',
       'provider_id'   => 'required',
       'datacenter_id' => 'required',
       'user_id'       => 'required',
     ]);
+
+    // check if validation success
+    if ($validator->fails()) {
+
+      // Flash Message error
+      notify('Server can\'t be created!', 'error');
+
+      // back to form with inputs
+      return back()->withErrors($validator)->withInput();
+    }
 
     // store all values in $input
     $input = $request->all();
@@ -71,8 +81,11 @@ class ServerBackendController extends Controller {
     // create server with values
     Server::create($input);
 
+    // Flash Message success
+    notify('Server created!', 'success');
+
     // redirect with success flash message
-    return redirect()->route('server.index')->with('status', 'server created!');
+    return redirect()->route('server.index');
   }
 
   /**
@@ -120,12 +133,22 @@ class ServerBackendController extends Controller {
     $server = server::findOrFail($id);
 
     // validate fields
-    $this->validate($request, [
+    $validator = Validator::make($request->all(), [
       'name'          => 'required|min:3',
       'provider_id'   => 'required',
       'datacenter_id' => 'required',
       'user_id'       => 'required',
     ]);
+
+    // check if validation success
+    if ($validator->fails()) {
+
+      // Flash Message error
+      notify('Server can\'t be updated!', 'error');
+
+      // back to form with inputs
+      return back()->withErrors($validator)->withInput();
+    }
 
     // stock all fields in $input
     $input = $request->all();
@@ -133,8 +156,11 @@ class ServerBackendController extends Controller {
     // fill all input to save for server
     $server->fill($input)->save();
 
+    // Flash Message success
+    notify('Server updated!', 'success');
+
     //redirect with success message
-    return redirect()->route('server.index')->with('status', 'server updated!');
+    return redirect()->route('server.index');
   }
 
   /**
@@ -151,6 +177,9 @@ class ServerBackendController extends Controller {
 
     // delete server
     $server->delete();
+
+    // Flash Message success
+    notify('Server deleted!', 'info');
 
     // redirect to home
     return redirect()->route('server.index');
