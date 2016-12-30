@@ -52,8 +52,8 @@
 		<div id="sidebar-default" class="main-sidebar">
 			<div class="current-user">
 				<a href="#" class="name">
-					@if(Auth::user()->avatar)
-						<img class="avatar" src="{{ asset('storage/avatars/1.jpeg') }}" />
+					@if(Gravatar::exists(Auth::user()->email))
+						<img class="avatar" src="{{ Gravatar::src(Auth::user()->email) }}" />
 					@else
 						<img class="avatar" src="{{ asset('storage/avatars/no_avatars.png') }}" />
 					@endif

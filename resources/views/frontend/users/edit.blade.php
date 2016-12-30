@@ -36,13 +36,10 @@
                         {!! Form::email('email', null, ['class' => 'form-control']) !!}
                     </div>
 
-                    <div class="form-group">
-                        {!! Form::file('avatar', ['class' => 'form-control', 'value' => Auth::user()->avatar]) !!}
-                    </div>
-
                     {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
 
                     {!! Form::close() !!}
+
 
                     {!! Form::open([
                         'method' => 'DELETE',

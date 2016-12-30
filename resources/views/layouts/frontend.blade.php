@@ -10,28 +10,34 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/semantic/semantic.min.css') }}">
-    <link rel="stylesheet" href="{{ elixir('assets/frontend/css/app.css') }}">
+    @section('styles')
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/semantic/semantic.min.css') }}">
+        <link rel="stylesheet" href="{{ elixir('assets/frontend/css/app.css') }}">
 
-    <!-- Flash Message -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger-theme-flat.css') }}">
+        <!-- Flash Message -->
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger-theme-flat.css') }}">
+    @show
 
-    <!-- javascript -->
-    <script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}"></script>
-    <!-- Flash Message -->
-    <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger-theme-flat.js') }}"></script>
-    <script type="text/javascript">
-        Messenger.options = {
-            extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
-            theme: 'flat'
-        }
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
+    @section('scripts')
+        <!-- javascript -->
+        <script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}"></script>
+
+        <!-- Flash Message -->
+        <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger.min.js') }}"></script>
+        <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger-theme-flat.js') }}"></script>
+        <script type="text/javascript">
+            Messenger.options = {
+                extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+                theme: 'flat'
+            }
+            window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+            ]); ?>
+        </script>
+    @show
+    
 </head>
 <body>
     <div id="app">
