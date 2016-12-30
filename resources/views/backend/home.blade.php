@@ -152,11 +152,22 @@ $(document).ready(function() {
             var enddate = $('#enddate').val()
             var baseUrl = '{!! url('/') !!}'
             var url = baseUrl + '/backend/dashboard/stats/' + startdate + '/' + enddate + '/'
-            $.get(url, function(data){
+            Messenger().run({
+                action: $.ajax,
+                successMessage: 'All statistics are updated! ' + startdate + ' to ' + enddate,
+                errorMessage: 'We can\'t get statistics for your period given',
+                progressMessage: 'Retrieve statistics...'
+            }, {
+              /* These options are provided to $.ajax, with success and error wrapped */
+              url: url,
+              dataType: "json",
+
+              success: function(data){
                 $('.signups').html(data.signups)
                 var data = data.userCharts
                 $(ResetChartSignups(data))
-            }, "json"); 
+              }
+            });
         }
     }
 

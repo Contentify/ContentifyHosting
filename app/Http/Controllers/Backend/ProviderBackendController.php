@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
-use View;
+use View, Validator;
 use App\Provider;
 
 class ProviderBackendController extends Controller {
@@ -45,9 +45,19 @@ class ProviderBackendController extends Controller {
   {
 
     // validate fields
-    $this->validate($request, [
-      'name'      => 'required|min:3|unique:providers,name,'.$request->id,
+    $validator = Validator::make($request->all(), [
+      'name'      => 'required|min:3|unique:providers,name,'.$provider->id,
     ]);
+
+    // check if validation success
+    if ($validator->fails()) {
+
+      // Flash Message error
+      notify('Provider can\'t be created!', 'error');
+
+      // back to form with inputs
+      return back()->withErrors($validator)->withInput();
+    }
 
     // store all values in $input
     $input = $request->all();
@@ -55,8 +65,11 @@ class ProviderBackendController extends Controller {
     // create provider with values
     Provider::create($input);
 
+    // Flash Message success
+    notify('Provider created!', 'success');
+
     // redirect with success flash message
-    return redirect()->route('provider.index')->with('status', 'Provider created!');
+    return redirect()->route('provider.index');
   }
 
   /**
@@ -104,9 +117,19 @@ class ProviderBackendController extends Controller {
     $provider = Provider::findOrFail($id);
 
     // validate fields
-    $this->validate($request, [
+    $validator = Validator::make($request->all(), [
       'name'      => 'required|min:3|unique:providers,name,'.$provider->id,
     ]);
+
+    // check if validation success
+    if ($validator->fails()) {
+
+      // Flash Message error
+      notify('Provider can\'t be updated!', 'error');
+
+      // back to form with inputs
+      return back()->withErrors($validator)->withInput();
+    }
 
     // stock all fields in $input
     $input = $request->all();
@@ -114,8 +137,11 @@ class ProviderBackendController extends Controller {
     // fill all input to save for provider
     $provider->fill($input)->save();
 
+    // Flash Message success
+    notify('Provider updated!', 'success');
+
     //redirect with success message
-    return redirect()->route('provider.index')->with('status', 'Provider updated!');
+    return redirect()->route('provider.index');
   }
 
   /**
@@ -132,6 +158,9 @@ class ProviderBackendController extends Controller {
 
     // delete provider
     $provider->delete();
+
+    // Flash Message success
+    notify('Provider deleted!', 'info');
 
     // redirect to home
     return redirect()->route('provider.index');

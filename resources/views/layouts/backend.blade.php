@@ -15,12 +15,26 @@
 		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/brankic.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/ionicons.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/font-awesome.min.css') }}">
+
+		<!-- Flash Message -->
+		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/messenger/messenger.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/messenger/messenger-theme-flat.css') }}">
 	@show
 
 	@section('scripts')
 		<!-- javascript -->
 		<script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}"></script>
 		<script src="{{ elixir('assets/backend/js/app.js') }}"></script>
+
+		<!-- Flash Message -->
+		<script src="{{ asset('assets/backend/js/vendor/messenger/messenger.min.js') }}"></script>
+		<script src="{{ asset('assets/backend/js/vendor/messenger/messenger-theme-flat.js') }}"></script>
+		<script type="text/javascript">
+			Messenger.options = {
+		    	extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+		    	theme: 'flat'
+			}
+		</script>
 	@show
 
 	<!--[if lt IE 9]>
@@ -161,11 +175,8 @@
 
 				@yield('dataPeriod')
 			</div>
-			@if (session('status'))
-            	<div class="alert alert-success">
-                	{{ session('status') }}
-            	</div>
-        	@endif
+			@include('alert')
+
 			@yield('content')
 			
 		</div>

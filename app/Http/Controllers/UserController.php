@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth, Session, Image;
+use Auth, Session, Image, Validator;
 use App\User;
 
 class UserController extends Controller
@@ -53,18 +53,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $email)
     {
-        // check if email exist
-        $user = User::where('email', '=', $email)->firstOrFail();
-
         // check if his profile of user loggedin
         if (Auth::user()->email == $email)
         {
+            // check if email exist
+            $user = User::where('email', '=', $email)->firstOrFail();
+
             // validate fields
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'name'   => 'required|min:3',
                 'email'  => 'email|required|unique:users,email,'.Auth::User()->id,
                 'avatar' => 'image|max:10240',
             ]);
+
+            // check if validation success
+            if ($validator->fails()) {
+
+              // Flash Message error
+              notify('User can\'t be updated!', 'error');
+
+              // back to form with inputs
+              return back()->withErrors($validator)->withInput();
+            }
 
             // stock all fields in $input
             $input = $request->except('avatar');
@@ -85,14 +95,20 @@ class UserController extends Controller
             // fill all input to save for user
             $user->fill($input)->save();
 
+            // Flash Message success
+            notify('User updated!', 'success');
+
             //redirect with success message
-            return redirect()->back()->with('status', 'Profile updated!');
+            return redirect()->back();
 
         }
         else
         {
+            // Flash Message success
+            notify('Unauthorized!', 'error');
+
             //redirect with error message
-            return redirect('home')->with('status', 'Not authorize!');
+            return redirect('home');
         }
     }
 
@@ -104,12 +120,11 @@ class UserController extends Controller
      */
     public function destroy($email)
     {
-        // check if email exist
-        $user = User::where('email', '=', $email)->firstOrFail();
-
         // check if his profile of user loggedin
         if (Auth::user()->email == $email)
         {
+            // check if email exist
+            $user = User::where('email', '=', $email)->firstOrFail();
 
             // delete user
             $user->delete();
@@ -117,14 +132,20 @@ class UserController extends Controller
             // logout user
             Auth::logout();
 
+            // Flash Message success
+            notify('Account deleted!', 'info');
+
             // redirect to home
             return redirect('/');
 
         }
         else
         {
+            // Flash Message success
+            notify('Unauthorized!', 'error');
+
             //redirect with error message
-            return redirect('home')->with('status', 'Not authorize!');
+            return redirect('home');
         }
     }
 }
