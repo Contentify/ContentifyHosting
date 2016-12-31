@@ -93,16 +93,6 @@
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('backend/customers') }}" {{ setActive('backend/customers') }} data-toggle="sidebar">
-							<i class="ion-person-stalker"></i> <span>Customers</span>
-							<i class="fa fa-chevron-down"></i>
-						</a>
-						<ul class="submenu">
-							<li><a href="{{ url('backend/customers') }}">Customers list</a></li>
-							<li><a href="{{ url('backend/customers/orders') }}">Orders</a></li>
-						</ul>
-					</li>
-					<li>
 						<a href="{{ url('backend/customers/reports') }}" data-toggle="sidebar">
 							<i class="ion-stats-bars"></i> <span>Reports</span>
 							<i class="fa fa-chevron-down"></i>
@@ -114,7 +104,7 @@
 				</ul>
 			</div>
 			<div class="menu-section">
-				<h3>Application</h3>
+				<h3>Settings</h3>
 				<ul>
 					<li>
 						<a href="{{ url('/backend/provider') }}" {{ setActive('backend/provider') }}>
@@ -127,13 +117,28 @@
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('/backend/server') }}" {{ setActive('backend/server') }}>
-							<i class="fa fa-server"></i> <span>Servers</span>
-						</a>
-					</li>
-					<li>
 						<a href="{{ url('/backend/plan') }}" {{ setActive('backend/plan') }}>
 							<i class="ion-card"></i> <span>Plans</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="menu-section">
+				<h3>Application</h3>
+				<ul>
+					<li>
+						<a href="{{ url('backend/customers') }}" {{ setActive('backend/customers') }} data-toggle="sidebar">
+							<i class="ion-person-stalker"></i> <span>Customers</span>
+							<i class="fa fa-chevron-down"></i>
+						</a>
+						<ul class="submenu">
+							<li><a href="{{ url('backend/customers') }}">Customers list</a></li>
+							<li><a href="{{ url('backend/customers/orders') }}">Orders</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="{{ url('/backend/server') }}" {{ setActive('backend/server') }}>
+							<i class="fa fa-server"></i> <span>Servers</span>
 						</a>
 					</li>
 				</ul>

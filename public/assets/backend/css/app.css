@@ -13311,6 +13311,11 @@ body.open-sidebar #wrapper #content {
   margin-bottom: 25px;
 }
 
+#datatables .content-wrapper .dataTables_length select {
+  border-radius: 3px;
+  border: 1px solid #cccccc;
+}
+
 @media (max-width: 767px) {
   #datatables .content-wrapper .dataTables_length {
     float: none;

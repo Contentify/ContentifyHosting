@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth, Session, Validator;
+use Auth, Session, Validator, Response;
 use App\User;
 
 class UserController extends Controller
@@ -65,8 +65,13 @@ class UserController extends Controller
 
             // validate fields
             $validator = Validator::make($request->all(), [
-                'name'   => 'required|min:3',
-                'email'  => 'email|required|unique:users,email,'.Auth::User()->id
+                'name'    => 'required|min:3',
+                'email'   => 'email|required|unique:users,email,'.Auth::User()->id,
+                'street'  => 'required',
+                'city'    => 'required',
+                'country' => 'required',
+                'zip'     => 'required',
+                'phone'   => 'required',
             ]);
 
             // check if validation success
@@ -125,8 +130,8 @@ class UserController extends Controller
             // Flash Message success
             notify('Account deleted!', 'info');
 
-            // redirect to home
-            return redirect('/');
+            // response json success
+            return response()->json('success', 200);
 
         }
         else
@@ -134,8 +139,8 @@ class UserController extends Controller
             // Flash Message success
             notify('Unauthorized!', 'error');
 
-            //redirect with error message
-            return redirect('home');
+            //response json error
+            return response()->json('unauthorized', 401);
         }
     }
 }

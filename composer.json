@@ -10,7 +10,6 @@
         "laravelcollective/html": "5.3.0",
         "arcanedev/notify": "^3.2",
         "thomaswelton/laravel-gravatar": "^1.1",
-        "webpatser/laravel-uuid": "2.*",
 	"laravel/cashier-braintree": "~2.0"
     },
     "require-dev": {
