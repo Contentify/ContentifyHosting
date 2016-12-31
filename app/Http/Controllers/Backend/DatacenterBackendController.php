@@ -143,6 +143,9 @@ class DatacenterBackendController extends Controller {
       return back()->withErrors($validator)->withInput();
     }
 
+    // stock published field
+    $request->request->add(['published' => $request->input('published', '0')]);
+
     // stock all fields in $input
     $input = $request->all();
 
