@@ -39,5 +39,6 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'admin']], functio
 	Route::resource('server', 'Backend\ServerBackendController');
 	Route::resource('datacenter', 'Backend\DatacenterBackendController');
 	Route::resource('country', 'Backend\CountryBackendController');
+	Route::resource('plan', 'Backend\PlanBackendController');
 });
 

@@ -77,7 +77,7 @@
 
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10 col-md-offset-2 col-md-10">
-					{!! Form::checkbox('published', true, array('class' => 'form-control')) !!} Published
+					{!! Form::checkbox('published', true) !!} Published
 				</div>
 			</div>
 

@@ -10,102 +10,79 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/semantic/semantic.min.css') }}">
-    <link rel="stylesheet" href="{{ elixir('assets/frontend/css/app.css') }}">
+    @section('styles')
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="{{ elixir('assets/frontend/css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/semantic/semantic.min.css') }}">
 
-    <!-- Flash Message -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger-theme-flat.css') }}">
+        <!-- Flash Message -->
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/messenger/messenger-theme-flat.css') }}">
+    @show
 
-    <!-- javascript -->
-    <script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}"></script>
-    <!-- Flash Message -->
-    <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger-theme-flat.js') }}"></script>
-    <script type="text/javascript">
-        Messenger.options = {
-            extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
-            theme: 'flat'
-        }
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
+    @section('scripts')
+        <!-- javascript -->
+        <script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/frontend/vendor/semantic/semantic.min.js') }}"></script>
+
+        <!-- Flash Message -->
+        <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger.min.js') }}"></script>
+        <script src="{{ asset('assets/frontend/js/vendor/messenger/messenger-theme-flat.js') }}"></script>
+        <script type="text/javascript">
+            Messenger.options = {
+                extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+                theme: 'flat'
+            }
+            window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+            ]); ?>
+        </script>
+    @show
+    
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+        <div class="ui menu">
+            <div class="ui container">
+                <div class="header item borderless">Laravel</div>
+            
+                <div class="right menu">
+                @if(Auth::guest())
+                    <a href="{{ url('/login') }}" class="item borderless">Login</a>
+                    <a href="{{ url('/register') }}" class="item borderless">Register</a>
+                @else
+                    <div class="ui dropdown item borderless" tabindex="0">
+                        {{ Auth::user()->name }}
+                        <i class="dropdown icon"></i>
+                        <div class="menu transition hidden" tabindex="-1">
+                            <a href="{{ url('/user/'.Auth::user()->email.'/edit') }}" class="item">Edit Profile</a>                    
+                            @if (Auth::User()->isAdmin())
+                                <a href="{{ url('/backend') }}" class="item">Admin Backend</a>
+                                <div class="divider"></div>
+                            @else
+                                <div class="divider"></div>
+                            @endif
+                            <a href="{{ url('/logout') }}" class="item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a>
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('/user/'.Auth::user()->email.'/edit') }}">Edit Profile</a>
-                                    </li>
-                                    @if (Auth::User()->isAdmin())
-                                        <li>
-                                            <a href="{{ url('/backend') }}">Admin Backend</a>
-                                        </li>
-                                    @endif
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
+                    </div>
+                @endif
                 </div>
             </div>
-        </nav>
+        </div>
 
         @include('alert')
 
         @yield('content')
     </div>
-
-    <!-- Scripts -->
-    <script src="{{ elixir('assets/frontend/vendor/semantic/semantic.min.js') }}"></script>
-    <script src="{{ elixir('assets/frontend/js/app.js') }}"></script>
+    <script type="text/javascript">
+        // initialize dropdown
+        $('.ui.dropdown')
+            .dropdown()
+        ;
+    </script>
 </body>
 </html>

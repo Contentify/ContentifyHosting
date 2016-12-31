@@ -37,6 +37,10 @@
 		.dataTables_length {
 			float: right;
 			margin-bottom: 25px;
+            
+            select {
+                    border-radius: 3px; border: 1px solid #cccccc;
+            }
 
 			@media (max-width: $maxSmall) {
 				float: none;
