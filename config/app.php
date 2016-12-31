@@ -171,6 +171,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Arcanedev\Notify\NotifyServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,7 +233,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Notify' => Arcanedev\Notify\Facades\Notify::class,
-        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class
+        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class
 
     ],
 

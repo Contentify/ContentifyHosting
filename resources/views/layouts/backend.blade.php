@@ -132,8 +132,8 @@
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('/backend/pricing') }}" {{ setActive('backend/pricing') }}>
-							<i class="ion-card"></i> <span>Pricing</span>
+						<a href="{{ url('/backend/plan') }}" {{ setActive('backend/plan') }}>
+							<i class="ion-card"></i> <span>Plans</span>
 						</a>
 					</li>
 				</ul>

@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Auth;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
 
     use Notifiable;
+    use Billable;
 
     protected $casts = [
         'is_admin' => 'boolean',
